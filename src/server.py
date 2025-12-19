@@ -79,22 +79,6 @@ def get_recent_announcements(course_id: int) -> str:
         return f"Error: {str(e)}"
 
 @mcp.tool()
-def check_grades(course_id: int) -> str:
-    """Check your current score in a course."""
-    try:
-        course = canvas.get_course(course_id)
-        user = canvas.get_current_user()
-        enrollment = course.get_enrollments(user.id)
-        
-        # Enrollment is a list, usually only 1 item for a student
-        if enrollment:
-            grades = enrollment[0].grades
-            return f"Current Score: {grades.get('current_score')} | Final Score: {grades.get('final_score')}"
-        return "Could not find enrollment details."
-    except Exception as e:
-        return f"Error: {str(e)}"
-
-@mcp.tool()
 def list_course_groups(course_id: int) -> str:
     """Lists all groups in a specific course to find their IDs."""
     try:
