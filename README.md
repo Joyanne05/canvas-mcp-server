@@ -2,17 +2,6 @@
 
 A Model Context Protocol (MCP) server that interfaces with the Canvas Learning Management System (LMS). This server allows AI models to interact with Canvas to retrieve course data, assignments, announcements and group project details.
 
-## Features
-
-MCP client tools includes:
-
-- **`list_active_courses`**: Lists the user's currently active courses.
-- **`get_all_assignments`**: Retrieves all assignments for a specific course ID.
-- **`get_upcoming_assignments`**: Retrieves only upcoming assignments for a specific course ID.
-- **`get_announcements`**: Fetches the last 5 announcements for a course.
-- **`list_course_groups`**: Lists all student groups within a specific course.
-- **`list_group_members`**: Lists the names and emails of students in a specific group.
-
 ## Prerequisites
 
 - Python 3.10 or higher
@@ -21,12 +10,14 @@ MCP client tools includes:
 ## Installation
 
 1. Clone the repository:
+
    ```bash
    git clone <repository-url>
    cd canvas-mcp-server
    ```
 
 2. Create and activate a virtual environment (optional but recommended):
+
    ```bash
    python -m venv .venv
    # Windows
@@ -51,12 +42,60 @@ MCP client tools includes:
 
 > **Note**: The Canvas API URL is currently hardcoded to `https://canvas.qut.edu.au/` in `src/server.py`. If you are using a different Canvas instance, you will need to modify the `API_URL` variable in that file.
 
-## Usage
+## Connect to Claude Desktop
 
-To run the server, execute the `src/server.py` script:
+Make sure you have Claude Desktop installed.
+Find the Claude config file:
+
+- Mac: `~/Library/Application Support/Claude/claude_desktop_config.json`
+
+- Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+
+Add this and replace with your own file path:
+```bash
+   {
+      "mcpServers": {
+         "canvas-mcp": {
+            "command": "uv",
+            "args": [
+            "run",
+            "--with",
+            "mcp",
+            "--with",
+            "canvasapi",
+            "python",
+            "YOUR_FILE_PATH\\src\\server.py"
+            ]
+         }
+      }
+   }
+```
+> **Note:** Always quit Claude after you make changes to the config file. 
+>- Windows: Click on the up arrow on the right side of your taskbar and right-click on the Claude icon to "Quit" 
+>- Mac: ⌘Q 
+
+## Connect to Notion
+
+You can get your API key by creating a new integration [here](https://www.notion.so/profile/integrations).
+1. Give your API key a name (```claude_mcp```)
+2. Choose your Notion workspace
+3. Copy your integration key and replace it in your Claude config file
 
 ```bash
-python src/server.py
+   {
+      "mcpServers": {
+         "notionApi": {
+            "command": "npx",
+            "args": ["-y", "@notionhq/notion-mcp-server"],
+            "env": {
+            "OPENAPI_MCP_HEADERS": "{\"Authorization\": \"Bearer YOUR_NOTION_API_KEY\", \"Notion-Version\": \"2022-06-28\" }"
+            }
+         }
+
+      }
+   }
 ```
 
-This will start the FastMCP server, which can then be connected to an MCP client (like Claude Desktop or an IDE extension).
+4. In Notion, click the ```...``` (three dots) on the right top corner and search for your new integration ```claude_mcp```
+![alt text](image.png)
+
