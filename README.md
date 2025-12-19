@@ -16,14 +16,18 @@ A Model Context Protocol (MCP) server that interfaces with the Canvas Learning M
    cd canvas-mcp-server
    ```
 
-2. Create and activate a virtual environment (optional but recommended):
+2. Create and activate a virtual environment:
 
    ```bash
-   python -m venv .venv
-   # Windows
-   .venv\Scripts\activate
-   # macOS/Linux
-   source .venv/bin/activate
+      # Create a virtual environment
+      uv venv
+
+      # Activate it
+      source .venv/bin/activate     # Mac/Linux
+      .venv\Scripts\activate        # Windows
+
+      # Install dependencies
+      uv pip install -e .
    ```
 
 3. Install the dependencies:
