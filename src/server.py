@@ -62,6 +62,7 @@ def get_upcoming_assignments(course_id: int) -> str:
     except Exception as e:
         return f"Error fetching assignments: {str(e)}"
 
+# Get recent 5 announcements for a specific course
 @mcp.tool()
 def get_recent_announcements(course_id: int) -> str:
     """Get the last 5 announcements for a course."""
@@ -78,6 +79,7 @@ def get_recent_announcements(course_id: int) -> str:
     except Exception as e:
         return f"Error: {str(e)}"
 
+# List all groups in a specific course
 @mcp.tool()
 def list_course_groups(course_id: int) -> str:
     """Lists all groups in a specific course to find their IDs."""
@@ -94,6 +96,7 @@ def list_course_groups(course_id: int) -> str:
     except Exception as e:
         return f"Error fetching groups: {str(e)}"
 
+# Get members of a specific group
 @mcp.tool()
 def get_group_members(group_id: int) -> str:
     """Gets the names and emails of all students in a specific group."""
