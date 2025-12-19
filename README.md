@@ -5,7 +5,7 @@ A Model Context Protocol (MCP) server that interfaces with the Canvas Learning M
 ## Prerequisites
 
 - Python 3.10 or higher
-- A Canvas API Key
+- A Canvas API Key (Go to Canvas -> Account -> Settings -> New access token)
 
 ## Installation
 
